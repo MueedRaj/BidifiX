@@ -1,0 +1,45 @@
+{
+  "summary": "First-finish smoke test of BidifyX marketplace. Backend auth (email/password), buyer flow (post demand, view offers, accept offer), seller flow (browse demands, submit offer, my-offers, subscription status), admin (stats, users), and public products endpoints all return 200 with correct data. Frontend landing, login, buyer dashboard, post-demand page, and public product catalog all render and integrate with backend via httpOnly cookies. One real bug found: Stripe checkout fails for the Basic plan because PKR 100 (~$0.36) is below Stripe's 50-cent minimum charge; Pro (PKR 300) and Agency (PKR 1000) checkouts succeed and return a valid Stripe URL. Google OAuth and Stripe webhook were not exercised (external dependencies).",
+  "tested_scope": ["backend", "frontend", "auth", "integration"],
+  "passed": [
+    "POST /api/auth/login for buyer/seller/admin returns 200 + sets cookie",
+    "GET /api/auth/me returns authenticated user via cookie",
+    "GET /api/products returns 4 seeded products; GET /api/products/{slug} returns details",
+    "POST /api/buyer/demands creates demand with fields {product_id,title,description,budget,duration}",
+    "GET /api/buyer/demands and GET /api/buyer/demands/{id}/offers (returns offer + seller incl. verified+trust_score)",
+    "POST /api/buyer/demands/{id}/select-offer/{oid} accepts offer (200)",
+    "GET /api/seller/demands (open demands) returns enriched list with product_name",
+    "POST /api/seller/demands/{id}/offer creates offer (200)",
+    "GET /api/seller/my-offers and GET /api/seller/subscription (free plan, bid_limit=5)",
+    "POST /api/seller/subscription/checkout?plan=pro|agency returns valid Stripe URL",
+    "GET /api/admin/stats and /api/admin/users return expected data",
+    "Frontend: landing, /login, /buyer/dashboard (shows stats + demand card), /buyer/post-demand (budget & duration inputs present), /products (4 cards) all load without console/UI errors",
+    "Buyer login E2E via UI redirects to /buyer/dashboard and shows Total Demands=1, Total Offers Received=1 from seeded data"
+  ],
+  "failed": [
+    {
+      "area": "backend / Stripe integration",
+      "issue": "POST /api/seller/subscription/checkout?plan=basic returns 500. Stripe rejects amount with: 'The Checkout Session's total amount must convert to at least 50 cents. PKR 100.00 converts to approximately $0.36.' Pro and Agency plans work fine.",
+      "evidence": "/var/log/supervisor/backend.err.log: emergentintegrations.payments.stripe.checkout.CheckoutError: Failed to create checkout session: ... ₨100.00 converts to approximately $0.36.",
+      "priority": "HIGH"
+    },
+    {
+      "area": "backend route name",
+      "issue": "Spec mentioned /api/seller/demands/open but actual route is /api/seller/demands. Not a bug per se; frontend uses /seller/demands. Calling /open returns 404.",
+      "evidence": "curl /api/seller/demands/open -> 404; /api/seller/demands -> 200 with open demands",
+      "priority": "LOW"
+    }
+  ],
+  "not_tested": [
+    "Google OAuth flow (requires real Google session)",
+    "Stripe webhook end-to-end and post-payment subscription upgrade (requires completing Stripe Checkout in browser)",
+    "Email notifications"
+  ],
+  "action_items": [
+    "Fix Basic plan checkout: either raise PKR price above ~PKR 140 (>=50 USD cents), or charge in USD, or block Basic plan from Stripe and mark it as N/A. Currently the seller-facing 'Upgrade' button for Basic will fail with an error toast.",
+    "Optional: surface a friendlier error on the frontend if Stripe checkout returns 500."
+  ],
+  "success_rate": {"backend": "92%", "frontend": "100%"},
+  "retest_needed": true,
+  "full_testing_deferred": true
+}

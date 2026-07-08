@@ -1,0 +1,29 @@
+{
+  "summary": "Iteration 3 regression verification after code review corrections (is None idiom, useCallback deps, SECURITY.md). Backend smoke tests for all 3 roles + key endpoints pass. Frontend buyer login flow works end-to-end; dashboard renders with real data. Security architecture verified: auth tokens are httpOnly cookies, localStorage contains only PostHog analytics (no tokens).",
+  "tested_scope": ["backend", "frontend", "auth", "integration", "security"],
+  "passed": [
+    "POST /api/auth/login buyer@test.com → 200, sets httpOnly access_token + refresh_token cookies",
+    "POST /api/auth/login seller@test.com → 200",
+    "POST /api/auth/login admin@bidifyx.com → 200",
+    "GET /api/auth/me with cookie → 200 returns correct user payload",
+    "GET /api/products → 200 returns product catalog",
+    "GET /api/seller/subscription (seller auth) → 200 returns free plan w/ bid_limit=5",
+    "GET /api/admin/users (admin auth) → 200 returns user list",
+    "Frontend landing page loads (BidifyX marketplace)",
+    "Login UI redirects buyer to /buyer/dashboard after successful login",
+    "Buyer dashboard renders real data (Welcome Test Buyer, demands count, offers)",
+    "SECURITY: access_token cookie HttpOnly=true, refresh_token cookie HttpOnly=true",
+    "SECURITY: localStorage contains only ph_...posthog key — NO auth tokens stored",
+    "No JS pageerror events; no visible .error elements on dashboard",
+    "No infinite render loop observed (dashboard stable, data fetched once)"
+  ],
+  "failed": [],
+  "notes": [
+    "Two console 401s on /api/auth/me are expected pre-login checks from AuthContext when /login mounts without cookies; cleared after successful login.",
+    "cf_clearance and __cf_bm cookies are from Cloudflare, unrelated to app auth."
+  ],
+  "action_items": [],
+  "success_rate": {"backend": "100% (6/6 endpoints)", "frontend": "100% (login + dashboard flow)"},
+  "retest_needed": false,
+  "full_testing_deferred": true
+}

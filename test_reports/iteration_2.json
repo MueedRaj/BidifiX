@@ -1,0 +1,29 @@
+{
+  "summary": "Regression test after code quality fixes (useEffect/useCallback deps, stable keys, Python comparison fixes). Tested backend auth + 8 key endpoints across buyer/seller/admin roles. Tested frontend flows: login, buyer dashboard, product catalog, product detail (features/FAQ keys), subscription plans (PKR 150/300/1000), seller subscription status, admin dashboard. No regressions detected. No infinite loops, no significant console errors (only expected 401s on /auth/me before login).",
+  "tested_scope": ["backend", "frontend", "auth", "integration"],
+  "passed": [
+    "POST /api/auth/login - buyer/seller/admin all return user data + cookies",
+    "GET /api/auth/me - returns 200 with valid session cookie",
+    "GET /api/buyer/demands - returns buyer's demands array",
+    "GET /api/seller/demands - returns open demands array",
+    "GET /api/seller/subscription - returns plan/bid_limit/bids_used",
+    "GET /api/seller/my-offers - returns offers with demand data nested",
+    "GET /api/admin/stats - returns 4 users, 1 buyer, 2 sellers, 1 demand, 1 offer",
+    "GET /api/admin/users - returns user list with picture/role fields",
+    "GET /api/products - returns products array including ChatGPT Plus",
+    "GET /api/products/chatgpt-plus - returns product with features list",
+    "Frontend: Login form submits with email/password and sets session cookies",
+    "Frontend: Buyer dashboard loads at /buyer/dashboard, shows 1 demand 'Need ChatGPT Plus' with budget/duration/offer count",
+    "Frontend: Products listing page renders ChatGPT card",
+    "Frontend: Product detail page renders Features list (GPT-4o, Faster responses, Priority access) and FAQ section using stable content-based keys",
+    "Frontend: Subscription plans page shows Free PKR 0, Basic PKR 150, Pro PKR 300, Agency PKR 1000 with correct features and 'Current Plan: FREE' highlighted for seller",
+    "No infinite re-render loops detected during navigation across buyer/seller/admin areas",
+    "useCallback/useEffect dependency fixes did not break dashboards - all data fetches succeed"
+  ],
+  "failed": [],
+  "action_items": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true,
+  "notes": "Post-login redirect timing varies (buyer redirects immediately to /buyer/dashboard; seller/admin sometimes need extra tick before navigation completes), but direct navigation to dashboards works and authenticated API calls succeed. This is normal AuthContext behavior, not a regression. Console showed 10 expected 401s from initial /auth/me check on unauthenticated public pages - benign."
+}

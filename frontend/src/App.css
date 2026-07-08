@@ -1,0 +1,57 @@
+.glass-nav {
+  backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-hover {
+  transition: all 0.2s ease-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background: #002FA7;
+  color: white;
+  transition: all 0.2s ease-out;
+}
+
+.btn-primary:hover {
+  background: #002280;
+  transform: translateY(-1px);
+}
+
+.trust-badge {
+  background: #D1FAE5;
+  color: #065F46;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+input::placeholder:hover{
+  color:rgb(14, 13, 13);
+}
+/* Force black placeholder text */
+
+/* input::placeholder,
+textarea::placeholder {
+  color: #000000 !important;
+  opacity: 1 !important;
+} */
+
+/* For Select component placeholder */
+
+/* [data-placeholder] {
+  color: #000000 !important;
+}
+
+.text-muted-foreground {
+  color: #000000 !important;
+} */

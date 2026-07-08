@@ -1,0 +1,105 @@
+{
+  "theme": "Light",
+  "archetype": "4 (Swiss & High-Contrast)",
+  "rationale": "For a digital subscription marketplace, trust, clarity, and authority are paramount. A Swiss & High-Contrast approach ensures buyers can easily compare offers and sellers can efficiently manage demands. It avoids the 'crypto-bro' dark mode and establishes a professional, transparent environment.",
+  "typography": {
+    "headings": {
+      "family": "Cabinet Grotesk",
+      "weights": ["700", "900"],
+      "tracking": "tracking-tight",
+      "usage": "Use for all H1-H4. H1 max text-5xl."
+    },
+    "body": {
+      "family": "IBM Plex Sans",
+      "weights": ["400", "500"],
+      "usage": "General readability, paragraphs, descriptions."
+    },
+    "labels_overlines": {
+      "family": "IBM Plex Mono",
+      "tracking": "tracking-[0.2em]",
+      "transform": "uppercase",
+      "usage": "Tiny overlines, tags, status badges."
+    }
+  },
+  "colors": {
+    "background": {
+      "base": "#F8F9FA",
+      "surface": "#FFFFFF",
+      "glass": "rgba(255, 255, 255, 0.7)"
+    },
+    "text": {
+      "primary": "#0A0A0A",
+      "secondary": "#4B5563",
+      "tertiary": "#9CA3AF"
+    },
+    "accents": {
+      "primary": "#002FA7",
+      "primary_hover": "#002280",
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "danger": "#EF4444"
+    },
+    "borders": {
+      "subtle": "#E5E7EB",
+      "focus": "#93C5FD"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing. Use p-6, p-8, p-12 for containers.",
+    "grids": {
+      "dashboard": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+      "marketing_hero": "grid-cols-1 md:grid-cols-12 gap-8"
+    },
+    "alignment": "Optical alignment. Left-align dense content. Never center by default."
+  },
+  "components": {
+    "navigation": "Crystal Glass style. backdrop-blur-xl bg-white/70, border-b border-black/5. Must be z-50 sticky.",
+    "cards_dashboard": "Neumorphism hybrid. bg-white, 1px border-black/5, shadow-sm. Hover: -translate-y-1 shadow-lg.",
+    "buttons": "Sharp corners or max rounded-md. Primary: bg-[#002FA7] text-white. Hover: bg-[#002280].",
+    "inputs": "Shadcn defaults but customized with border-black/10, focus:ring-2 focus:ring-[#002FA7] focus:border-transparent.",
+    "badges": "For trust/verification: bg-green-100 text-green-800 font-mono text-xs uppercase tracking-wide."
+  },
+  "motion": {
+    "hover": "transition-all duration-200 ease-out",
+    "lists": "Staggered entrance using framer-motion.",
+    "modals": "Fade in, slide up slightly."
+  },
+  "accessibility": {
+    "contrast": "Ensure 4.5:1 for normal text.",
+    "data_testid": "MANDATORY for all interactive elements (e.g., data-testid='post-demand-button').",
+    "focus": "Clear focus rings on all inputs and buttons."
+  },
+  "media": {
+    "image_urls": [
+      {
+        "category": "hero_background",
+        "url": "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0",
+        "description": "Abstract blue and white 3D shapes. Use as a subtle, masked background in the marketing hero section."
+      },
+      {
+        "category": "seller_avatar",
+        "url": "https://images.unsplash.com/photo-1713947503689-d5e1d303bb4a",
+        "description": "Professional smiling man using laptop. Use for verified seller profile placeholders."
+      },
+      {
+        "category": "app_icons_placeholder",
+        "url": "https://images.pexels.com/photos/5444628/pexels-photo-5444628.jpeg",
+        "description": "Close-up of smartphone icons. Use as a conceptual image for the digital subscription catalog."
+      }
+    ],
+    "icons": {
+      "library": "lucide-react",
+      "usage": "Use for UI elements. Ensure consistent stroke-width (usually 1.5 or 2)."
+    }
+  },
+  "instructions_to_main_agent": [
+    "Follow the Swiss & High-Contrast archetype strictly. Do not introduce unnecessary dark mode interfaces or neon colors.",
+    "Use Cabinet Grotesk for headings and IBM Plex Sans for body text.",
+    "Implement Shadcn UI for forms, tables, and dialogs, but customize the styling to remove the default 'Vercel' look (e.g., use sharper corners, specific borders).",
+    "For the Buyer/Seller dashboards, use the 'Control Room' grid pattern: tight gaps (gap-6), single-metric focus cards on the top row.",
+    "Every interactive element MUST have a `data-testid` attribute in kebab-case.",
+    "Do not use generic 'dummyimage' placeholders. Use the provided image URLs in the media section.",
+    "Ensure the hero section uses the provided abstract 3D image with a proper white/gray gradient overlay so text remains readable.",
+    "Ensure code is generated for .jsx/.js files instead of .tsx files since the project uses JavaScript."
+  ]
+}
