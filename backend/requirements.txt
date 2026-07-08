@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 fastapi==0.115.5
 uvicorn[standard]==0.32.1
 motor==3.6.0
@@ -11,3 +12,17 @@ google-auth-httplib2==0.2.0
 python-dotenv==1.0.1
 python-multipart==0.0.20
 httpx==0.28.1
+=======
+fastapi>=0.115,<0.116
+uvicorn[standard]>=0.32,<0.33
+motor>=3.6,<3.7
+pymongo>=4.10,<4.11
+pydantic>=2.10,<2.11
+email-validator>=2.2,<2.3
+bcrypt>=4.2,<4.3
+PyJWT>=2.10,<2.11
+google-auth>=2.37,<2.38
+python-dotenv>=1.0,<1.1
+python-multipart>=0.0.20,<0.1
+httpx>=0.28,<0.29
+>>>>>>> d909e3b3327053dd4ed9773f42e73f7868c5259c
