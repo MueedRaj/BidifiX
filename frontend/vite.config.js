@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
   // Backend URL - default localhost:8000
-  const BACKEND_URL = env.VITE_BACKEND_URL || 'http://localhost:8000';
+  const BACKEND_URL = env.VITE_BACKEND_URL || 'https://bidifi-x.onrender.com';
   
   return {
     plugins: [react()],

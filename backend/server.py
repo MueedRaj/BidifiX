@@ -954,7 +954,12 @@ origins = [o for o in origins if o != '*']
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=[
+        "https://bidifyx.com",           # ← Aap ka Hostinger domain
+        "https://www.bidifyx.com",
+        "http://localhost:3000",            # local testing
+        "http://localhost:5173",            # vite default
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
